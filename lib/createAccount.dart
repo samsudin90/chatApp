@@ -2,6 +2,8 @@ import 'package:chat/Methods.dart';
 import 'package:chat/loginScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'homeScreen.dart';
+
 class CreateAccount extends StatefulWidget {
   const CreateAccount({Key? key}) : super(key: key);
 
@@ -93,6 +95,8 @@ class _CreateAccountState extends State<CreateAccount> {
             _email.text.isNotEmpty &&
             _password.text.isNotEmpty) {
           createAccount(_name.text, _email.text, _password.text);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => HomeScreen()));
         } else {
           print("gg");
         }

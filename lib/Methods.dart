@@ -25,3 +25,7 @@ Future signIn(String email, String password) async {
     }
   }
 }
+
+Future logOut() async {
+  await FirebaseAuth.instance.signOut();
+}

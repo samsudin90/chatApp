@@ -1,5 +1,6 @@
 import 'package:chat/Methods.dart';
 import 'package:chat/createAccount.dart';
+import 'package:chat/homeScreen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -84,6 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
           signIn(_email.text, _password.text);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => HomeScreen()));
         } else {
           print("gg");
         }
