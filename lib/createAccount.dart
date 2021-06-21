@@ -1,17 +1,20 @@
 import 'package:chat/Methods.dart';
-import 'package:chat/createAccount.dart';
+import 'package:chat/loginScreen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CreateAccountState createState() => _CreateAccountState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountState extends State<CreateAccount> {
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -37,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               width: size.width / 1.3,
               child: Text(
-                "Sign In to continue !",
+                "Sign Up to continue !",
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 23,
@@ -46,6 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(
               height: size.height / 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              child: field(size, "name", Icons.lock, _name),
             ),
             Container(
                 width: size.width / 1.3,
@@ -64,9 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             GestureDetector(
               onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => CreateAccount())),
+                  .push(MaterialPageRoute(builder: (_) => LoginScreen())),
               child: Text(
-                "Create account ?",
+                "Have an account? login",
                 style: TextStyle(
                     color: Colors.blue,
                     fontSize: 16,
@@ -82,8 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget customButton(Size size) {
     return GestureDetector(
       onTap: () {
-        if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
-          signIn(_email.text, _password.text);
+        if (_name.text.isNotEmpty &&
+            _email.text.isNotEmpty &&
+            _password.text.isNotEmpty) {
+          createAccount(_name.text, _email.text, _password.text);
         } else {
           print("gg");
         }
@@ -95,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(10), color: Colors.blue),
         alignment: Alignment.center,
         child: Text(
-          "Login",
+          "Create Account",
           style: TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
         ),
